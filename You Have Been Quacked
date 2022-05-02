@@ -4,7 +4,7 @@ REM Description: Speech Synthesizer states that you have been Quacked followed b
 REM Target: Windows 10
 REM Version: 2.0
 REM Category: Prank
-REM This payload is based off the original Hak5 "QUACKED" payload, and was created for my own personal amusement as I'm not good at sharing...
+REM This payload is based off the original Hak5 "QUACKED" payload, and was created for my own personal amusement as I'm not good at sharing. It's more fun when deplolyed with OMG
 
 GUI r
 DELAY 500

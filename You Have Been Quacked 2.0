@@ -1,0 +1,26 @@
+REM Title: You Have Been Hacked
+REM Author: LulzAnarchy
+REM Description: Speech Synthesizer states that you have been hacked followed by a you have been hacked image.
+REM Target: Windows 10	
+REM Version: 1.0
+REM Category: Prank
+REM Source: https://github.com/LulzAnarchyAnon/LulzAnarchyAnon.git
+
+REM This payload is based on the original Hak5 "You've Been Quacked" It was basically created for my own personal amusement, but I thought I may as well share...
+
+GUI r
+DELAY 500
+STRING powershell -windowstyle hidden
+ENTER
+DELAY 200
+STRING Add-Type -AssemblyName System.speech
+ENTER
+STRING $speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
+ENTER
+STRING $speak.Speak("you have been quacked")
+ENTER
+DELAY 500
+STRING start firefox https://giphy.com/gifs/hackmylife-trutv-hack-my-life-L12ZXih8cd6YHZKLYi/fullscreen
+ENTER
+STRING exit
+ENTER

@@ -8,7 +8,7 @@ REM Category: Prank
 REM This payload is based off the original Hak5 "QUACKED" payload, and was created for my own personal amusement as I'm not good at sharing. It's more fun when deplolyed with OMG
 
 GUI r
-DELAY 500
+DELAY 200
 STRING powershell -windowstyle hidden
 ENTER
 DELAY 200
@@ -18,8 +18,18 @@ STRING $speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
 ENTER
 STRING $speak.Speak("you have been quacked")
 ENTER
-DELAY 500
-STRING start firefox https://giphy.com/gifs/hackmylife-trutv-hack-my-life-L12ZXih8cd6YHZKLYi/fullscreen
+DELAY 100
+STRING start firefox https://loginportal.funnyjunk.com/pictures/Mytril+urorubragg+taboo+quacked_d7d9b1_6228073.jpg
+ENTER
+DELAY 2000
+GUI r
+DELAY 200
+STRING powershell -windowstyle hidden
+ENTER
+DELAY 200
+STRING start firefox https://www.youtube.com/watch?v=CRkzItBabzs
+ENTER
+DELAY 2000
 ENTER
 STRING exit
 ENTER

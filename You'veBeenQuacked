@@ -1,4 +1,4 @@
-REM Title: You've Been Quacked
+REM Title: YouHaveBeenQuacked
 REM Author: LulzAnarchyAnon
 REM Description: A speech synthesizer with the volume increased to 100% states "you have been quacked" followed by a browser image "You've Been Quacked!" and a "Quacked" Youtube video.
 REM Target: Windows 10 (Powershell)

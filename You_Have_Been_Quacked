@@ -3,7 +3,7 @@ REM Author: LulzAnarchyAnon
 REM Description: A speech synthesizer with the volume increased to 100% states
 REM "you have been quacked" followed by a browser image "You've Been Quacked!" 
 REM and a "Quacked" Youtube video that opens full screen.
-REM Target: Windows 10-11
+REM Target: Windows 10-11 (PowerShell)
 REM Props: Hak5
 REM Version: 2.0
 REM Category: Prank

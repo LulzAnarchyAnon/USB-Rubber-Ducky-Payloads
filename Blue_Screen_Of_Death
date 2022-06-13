@@ -3,17 +3,6 @@ REM Author: LulzAnarchyAnon
 REM Description: A web browser downloads a blue screen of death image. Then saves it to the 
 REM downloads folder where it is set as the desktop wallpaper. All desktop icons and, the
 REM taskbar are hidden.
-REM Target: Windows 10 
-REM Props: Darren Kitchen, and cribb-it 
-REM Version: 1.0
-REM Category: Prank
- 
-
-REM Title: Blue_Screen_Of_Death
-REM Author: LulzAnarchyAnon
-REM Description: A web browser downloads a blue screen of death image. Then saves it to the 
-REM downloads folder where it is set as the desktop wallpaper. All desktop icons and, the
-REM taskbar are hidden.
 REM Target: Windows 10
 Props: Darren Kitchen, and cribb-it 
 REM Version: 1.0

